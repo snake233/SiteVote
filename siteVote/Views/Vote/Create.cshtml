@@ -20,9 +20,11 @@
             <div class="form-group">
                 @Html.LabelFor(a => a.Votes[i].siteName)
          
-               @Model.Votes[i].siteName
+               
                 @Html.LabelFor(a=>a.Votes[i].score)
                 @Html.EditorFor(a => a.Votes[i].score)
+                @Html.Raw(string.Format("<input type='text' name='Model.Votes[{0}].Score' value=''/>", i.ToString()))
+                
             </div>
             <div class="form-group"></div>
         }

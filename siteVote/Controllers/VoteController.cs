@@ -54,16 +54,22 @@ namespace siteVote.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id")] VoteSheet votesheet)
+        public ActionResult Create([Bind(Include="Id")] VoteSheetViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.VoteSheet.Add(votesheet);
+                VoteSheet voteSheet = new VoteSheet();
+                voteSheet.Votes = new List<Vote>();
+                foreach (var item in model.Votes)
+                {
+                    voteSheet.Votes.Add(new Vote() { Site=db.Site.First(a=>a.name==item.siteName),Score=item.score});
+                }
+                db.VoteSheet.Add(voteSheet);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(votesheet);
+            return View(model);
         }
 
         // GET: /Vote/Edit/5
