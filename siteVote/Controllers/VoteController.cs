@@ -38,13 +38,15 @@ namespace siteVote.Controllers
         // GET: /Vote/Create
         public ActionResult Create()
         {
-            List<Vote> votes = new List<Vote>();
+            VoteSheetViewModel model = new VoteSheetViewModel();
+            model.Votes = new List<VoteViewModels>();
+            
             foreach (var item in db.Site.ToList())
             {
-                votes.Add(new Vote { Site = item });
+                model.Votes.Add(new VoteViewModels { siteName = item.name });
             }
 
-            return View(votes);
+            return View(model);
         }
 
         // POST: /Vote/Create

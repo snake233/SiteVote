@@ -15,4 +15,11 @@ namespace siteVote.Models
         [Display (Name="网站名称")]
         public string siteName { get; set; }
     }
+    public class VoteSheetViewModel
+    {
+        
+        public DateTime voteTime { get; set; }
+        public string IpAddress { get; set; }
+        public List<VoteViewModels> Votes { get; set; }
+    }
 }
