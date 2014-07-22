@@ -63,10 +63,12 @@ namespace siteVote.Controllers
                 voteSheet.Votes = new List<Vote>();
                 foreach (var item in model)
                 {
-                    voteSheet.Votes.Add(new Vote() { Site=db.Site.First(a=>a.name==item.siteName),Score=item.score});
-                    
+                    voteSheet.Votes.Add(new Vote() { Site=db.Site.First(a=>a.name==item.siteName),Score=item.score});                   
                 }
+                voteSheet.SubmitDate = DateTime.Now;
+                voteSheet.VoteIpAddress = HttpContext.Request.ServerVariables["REMOTE_ADDR"].ToString();
                 db.VoteSheet.Add(voteSheet);
+                ////db.Vote.AddRange(voteSheet.Votes);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
