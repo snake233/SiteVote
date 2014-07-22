@@ -38,15 +38,15 @@ namespace siteVote.Controllers
         // GET: /Vote/Create
         public ActionResult Create()
         {
-            VoteSheetViewModel model = new VoteSheetViewModel();
-            model.Votes = new List<VoteViewModels>();
+            List<VoteViewModels> model = new List<VoteViewModels>();
+            
             
             foreach (var item in db.Site.ToList())
             {
-                model.Votes.Add(new VoteViewModels { siteName = item.name });
+                model.Add(new VoteViewModels { siteName = item.name });
             }
 
-            return View(model);
+            return View(model.ToList());
         }
 
         // POST: /Vote/Create
@@ -54,15 +54,17 @@ namespace siteVote.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id")] VoteSheetViewModel model)
+        public ActionResult Create(List<VoteViewModels> model)
         {
             if (ModelState.IsValid)
             {
+                
                 VoteSheet voteSheet = new VoteSheet();
                 voteSheet.Votes = new List<Vote>();
-                foreach (var item in model.Votes)
+                foreach (var item in model)
                 {
                     voteSheet.Votes.Add(new Vote() { Site=db.Site.First(a=>a.name==item.siteName),Score=item.score});
+                    
                 }
                 db.VoteSheet.Add(voteSheet);
                 db.SaveChanges();

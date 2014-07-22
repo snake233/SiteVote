@@ -8,6 +8,8 @@ namespace siteVote.Models
     public class VoteSheet
     {
         public int Id { get; set; }
+        public DateTime SubmitDate { get; set; }
+        public string VoteIpAddress { get; set; }
         virtual public List<Vote> Votes { get; set; }
 
         

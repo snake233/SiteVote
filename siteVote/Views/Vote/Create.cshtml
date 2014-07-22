@@ -1,4 +1,4 @@
-﻿@model siteVote.Models.VoteSheetViewModel
+﻿@model List<siteVote.Models.VoteViewModels>
 
 @{
     ViewBag.Title = "Create";
@@ -15,16 +15,12 @@
         <h4>VoteSheet</h4>
         <hr />
         @Html.ValidationSummary(true)
-        @for (int i = 0; i < Model.Votes.Count(); i++)
+        @for (int i = 0; i < Model.Count(); i++)
         {
             <div class="form-group">
-                @Html.LabelFor(a => a.Votes[i].siteName)
-         
-               
-                @Html.LabelFor(a=>a.Votes[i].score)
-                @Html.EditorFor(a => a.Votes[i].score)
-                @Html.Raw(string.Format("<input type='text' name='Model.Votes[{0}].Score' value=''/>", i.ToString()))
-                
+                @Model[i].siteName
+                @Html.Raw(string.Format("<input type='hidden' name='model[{0}].siteName' value='{1}'/>", i.ToString(), Model[i].siteName))
+                @Html.Raw(string.Format("<input type='text' name='model[{0}].Score' value=''/>", i.ToString()))
             </div>
             <div class="form-group"></div>
         }
