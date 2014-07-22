@@ -16,5 +16,6 @@ namespace siteVote.Models
         }
         public DbSet<Vote> Vote { get; set; }
         public DbSet<VoteSheet> VoteSheet { get; set; }
+        public DbSet<Site> Site { get; set; }
     }
 }

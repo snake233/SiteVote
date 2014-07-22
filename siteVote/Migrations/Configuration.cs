@@ -4,6 +4,7 @@ namespace siteVote.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using siteVote.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<siteVote.Models.ApplicationDbContext>
     {
@@ -14,6 +15,10 @@ namespace siteVote.Migrations
 
         protected override void Seed(siteVote.Models.ApplicationDbContext context)
         {
+            context.Site.AddOrUpdate(
+                p => p.name,
+                new Site { name = "site A" },
+                new Site { name = "site B" });
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
