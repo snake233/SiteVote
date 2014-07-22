@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace siteVote.Models
 {
@@ -13,5 +14,7 @@ namespace siteVote.Models
             : base("DefaultConnection")
         {
         }
+        public DbSet<Vote> Vote { get; set; }
+        public DbSet<VoteSheet> VoteSheet { get; set; }
     }
 }
